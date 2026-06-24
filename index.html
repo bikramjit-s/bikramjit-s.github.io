@@ -1,0 +1,1936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bikramjit Singh — Senior Principal Architect</title>
+  <meta name="description" content="Senior architect engineering the seam between native desktop and modern web. Twenty-three years in desktop publishing, component content management, and structured XML workflows.">
+  <meta name="author" content="Bikramjit Singh">
+  <meta name="theme-color" content="#F7F1E4" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#15110C" media="(prefers-color-scheme: dark)">
+
+  <meta property="og:title" content="Bikramjit Singh — Senior Principal Architect">
+  <meta property="og:description" content="Senior architect engineering the seam between native desktop and modern web.">
+  <meta property="og:image" content="headshot.jpeg">
+  <meta property="og:type" content="profile">
+  <meta property="profile:first_name" content="Bikramjit">
+  <meta property="profile:last_name" content="Singh">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bikramjit Singh — Senior Principal Architect">
+  <meta name="twitter:description" content="Senior architect engineering the seam between native desktop and modern web.">
+  <meta name="twitter:image" content="headshot.jpeg">
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F7F1E4'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-family='Georgia,serif' font-size='22' font-weight='600' fill='%23A03830'%3EB%3C/text%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+  <style>
+    /* RESET */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; -webkit-text-size-adjust: 100%; }
+    body, h1, h2, h3, h4, p, ul, figure, dl, dd { margin: 0; }
+    ul { padding: 0; list-style: none; }
+    img { display: block; max-width: 100%; height: auto; }
+    button { font: inherit; cursor: pointer; }
+    ::selection { background: var(--accent); color: var(--bg); }
+
+    /* TOKENS */
+    :root {
+      --bg: #F7F1E4;
+      --bg-deep: #F0E9D8;
+      --bg-elev: #FBF6EA;
+      --surface: #FCF8EE;
+      --text: #1C1814;
+      --text-muted: #4F4940;
+      --text-subtle: #8A8275;
+      --rule: #DCD3BD;
+      --rule-strong: #BFB39A;
+      --accent: #A03830;
+      --accent-deep: #862C25;
+      --accent-soft: rgba(160, 56, 48, 0.08);
+
+      --serif: 'Fraunces', Georgia, 'Times New Roman', serif;
+      --display: 'Instrument Serif', 'Fraunces', Georgia, 'Times New Roman', serif;
+      --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+      --measure: 64ch;
+      --container-max: 1200px;
+      --gutter: clamp(1.25rem, 4vw, 2rem);
+      --section-pad: clamp(2.5rem, 5vw, 4.5rem);
+
+      --shadow-sm: 0 1px 3px rgba(28, 24, 20, 0.06), 0 1px 2px rgba(28, 24, 20, 0.04);
+      --shadow-md: 0 4px 16px -4px rgba(28, 24, 20, 0.12), 0 2px 6px -2px rgba(28, 24, 20, 0.08);
+      --shadow-lg: 0 20px 40px -16px rgba(28, 24, 20, 0.2), 0 8px 16px -4px rgba(28, 24, 20, 0.1);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #15110C;
+        --bg-deep: #100D08;
+        --bg-elev: #1A150F;
+        --surface: #1F1A13;
+        --text: #F2EBDB;
+        --text-muted: #B8AFA0;
+        --text-subtle: #75695B;
+        --rule: #2C251D;
+        --rule-strong: #45382C;
+        --accent: #E18A7E;
+        --accent-deep: #C46F62;
+        --accent-soft: rgba(225, 138, 126, 0.12);
+
+        --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.3);
+        --shadow-md: 0 4px 16px -4px rgba(0, 0, 0, 0.5), 0 2px 6px -2px rgba(0, 0, 0, 0.4);
+        --shadow-lg: 0 20px 40px -16px rgba(0, 0, 0, 0.6), 0 8px 16px -4px rgba(0, 0, 0, 0.5);
+      }
+    }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 17px;
+      line-height: 1.65;
+      font-feature-settings: "kern", "liga", "calt";
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+      overflow-x: hidden;
+    }
+
+    /* TYPOGRAPHY */
+    h1, h2, h3, h4 {
+      font-family: var(--serif);
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      color: var(--text);
+    }
+
+    h1 {
+      font-size: clamp(2.75rem, 8vw, 5.5rem);
+      font-weight: 500;
+      letter-spacing: -0.035em;
+      font-variation-settings: "opsz" 144;
+      line-height: 1.02;
+    }
+
+    h2 {
+      font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+      font-variation-settings: "opsz" 60;
+      letter-spacing: -0.02em;
+    }
+
+    h3 {
+      font-size: 1.375rem;
+      font-variation-settings: "opsz" 24;
+      line-height: 1.25;
+    }
+
+    h4 {
+      font-size: 1.125rem;
+      font-weight: 500;
+      font-variation-settings: "opsz" 18;
+    }
+
+    p { max-width: var(--measure); }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      text-underline-offset: 3px;
+      transition: color 0.18s ease;
+    }
+    a:hover, a:focus-visible { text-decoration: underline; }
+    a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+      border-radius: 4px;
+    }
+
+    /* LAYOUT */
+    .container {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 var(--gutter);
+    }
+
+    section {
+      padding: var(--section-pad) 0;
+      position: relative;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: 1rem;
+      padding: 0.625rem 1rem;
+      background: var(--accent);
+      color: #fff;
+      z-index: 200;
+      border-radius: 6px;
+    }
+    .skip-link:focus { left: 1rem; }
+
+    /* ==========================================
+       SITE NAVIGATION (sticky top)
+       ========================================== */
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(247, 241, 228, 0.85);
+      backdrop-filter: saturate(180%) blur(14px);
+      -webkit-backdrop-filter: saturate(180%) blur(14px);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .site-nav { background: rgba(21, 17, 12, 0.85); }
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.875rem 0;
+      gap: 1rem;
+    }
+
+    .nav-brand {
+      font-family: var(--serif);
+      font-size: 1.0625rem;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -0.01em;
+      font-variation-settings: "opsz" 14, "wght" 600;
+      flex-shrink: 0;
+    }
+
+    .nav-brand:hover { text-decoration: none; color: var(--accent); }
+
+    .nav-links {
+      display: none;
+      align-items: center;
+      gap: 1.75rem;
+      font-family: var(--sans);
+      font-size: 0.875rem;
+    }
+
+    @media (min-width: 720px) {
+      .nav-links { display: flex; }
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      font-weight: 500;
+      position: relative;
+      padding: 0.25rem 0;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.2s ease;
+    }
+
+    .nav-links a:hover::after { transform: scaleX(1); }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 1rem;
+      background: var(--accent);
+      color: #fff;
+      font-family: var(--sans);
+      font-size: 0.85rem;
+      font-weight: 500;
+      border-radius: 6px;
+      transition: background 0.18s ease, transform 0.18s ease;
+      flex-shrink: 0;
+    }
+
+    .nav-cta:hover {
+      background: var(--accent-deep);
+      text-decoration: none;
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .nav-cta { color: #15110C; }
+      .nav-cta:hover { color: #15110C; }
+    }
+
+    .nav-cta-arrow {
+      display: inline-block;
+      transition: transform 0.18s ease;
+    }
+
+    .nav-cta:hover .nav-cta-arrow { transform: translateX(2px); }
+
+    /* ==========================================
+       BUTTONS
+       ========================================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.25rem;
+      font-family: var(--sans);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      transition: all 0.18s ease;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-deep);
+      border-color: var(--accent-deep);
+      text-decoration: none;
+      color: #fff;
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .btn-primary, .btn-primary:hover { color: #15110C; }
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      border-color: var(--rule-strong);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      text-decoration: none;
+      transform: translateY(-1px);
+    }
+
+    .btn-arrow {
+      display: inline-block;
+      transition: transform 0.18s ease;
+    }
+
+    .btn:hover .btn-arrow { transform: translateX(2px); }
+
+    .btn-arrow-down {
+      display: inline-block;
+      transition: transform 0.18s ease;
+      font-size: 1.1em;
+      line-height: 1;
+    }
+
+    .btn:hover .btn-arrow-down { transform: translateY(2px); }
+
+    /* ==========================================
+       SCROLL REVEAL (sections fade up on entry)
+       ========================================== */
+    .observable {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+    }
+
+    .observable.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .observable {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+    }
+
+    /* ==========================================
+       SCROLL SPY (active nav link)
+       ========================================== */
+    .nav-links a.is-active {
+      color: var(--text);
+    }
+
+    .nav-links a.is-active::after {
+      transform: scaleX(1);
+    }
+
+    /* ==========================================
+       SECTION HEADER (eyebrow + heading)
+       ========================================== */
+    .section-eyebrow {
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 1rem;
+    }
+
+    .section-eyebrow::before {
+      content: '';
+      width: 24px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .section-header {
+      margin-bottom: clamp(2rem, 4vw, 3rem);
+      max-width: 720px;
+    }
+
+    .section-header h2 {
+      margin-top: 0;
+    }
+
+    /* ==========================================
+       HERO
+       ========================================== */
+    .hero { padding: clamp(2.5rem, 6vw, 5rem) 0 clamp(2.5rem, 5vw, 4rem); }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    @media (min-width: 860px) {
+      .hero-grid {
+        grid-template-columns: 1.55fr 1fr;
+        gap: clamp(2rem, 5vw, 4.5rem);
+      }
+    }
+
+    .hero-role {
+      font-family: var(--sans);
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .hero-role::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.85); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-role::before { animation: none; }
+    }
+
+    .hero h1 {
+      font-family: var(--display);
+      font-size: clamp(3rem, 9.5vw, 6.5rem);
+      font-weight: 400;
+      letter-spacing: -0.018em;
+      line-height: 0.98;
+      margin-bottom: 1.25rem;
+      font-variation-settings: normal;
+    }
+
+    .hero-tagline {
+      font-family: var(--serif);
+      font-size: clamp(1.125rem, 2.4vw, 1.5rem);
+      font-weight: 400;
+      font-style: italic;
+      font-variation-settings: "opsz" 60, "wght" 400;
+      line-height: 1.4;
+      color: var(--text-muted);
+      max-width: 32ch;
+      margin: 0 0 2rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-meta {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      padding-top: 1.75rem;
+      border-top: 1px solid var(--rule);
+      font-size: 0.875rem;
+    }
+
+    @media (min-width: 560px) {
+      .hero-meta { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    }
+
+    .hero-meta-label {
+      display: block;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--text-subtle);
+      margin-bottom: 0.4rem;
+      font-weight: 600;
+    }
+
+    .hero-meta-value {
+      color: var(--text);
+      font-family: var(--serif);
+      font-size: 0.9375rem;
+      line-height: 1.35;
+      font-variation-settings: "opsz" 14;
+    }
+
+    .portrait-frame {
+      position: relative;
+      max-width: 380px;
+      width: 100%;
+      justify-self: end;
+    }
+
+    @media (max-width: 859px) {
+      .portrait-frame { max-width: 300px; justify-self: start; }
+    }
+
+    .portrait {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      background: var(--surface);
+      border-radius: 8px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .portrait img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+    }
+
+    /* ==========================================
+       SECTION DIVIDER (subtle, web-like)
+       ========================================== */
+    .section-divider {
+      border: 0;
+      height: 1px;
+      background: var(--rule);
+      margin: 0;
+    }
+
+    /* ==========================================
+       TWO-COL LAYOUT
+       ========================================== */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    @media (min-width: 820px) {
+      .two-col {
+        grid-template-columns: 220px 1fr;
+        gap: clamp(2rem, 5vw, 4rem);
+      }
+    }
+
+    /* ==========================================
+       ABOUT
+       ========================================== */
+    .about-body p {
+      font-size: 1.125rem;
+      line-height: 1.7;
+      color: var(--text);
+    }
+
+    .about-body p + p { margin-top: 1.25rem; }
+
+    /* ==========================================
+       STATS
+       ========================================== */
+    .stats {
+      background: var(--bg-deep);
+      padding: clamp(2.5rem, 5vw, 4rem) 0;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .stats-header {
+      text-align: center;
+      margin-bottom: clamp(2rem, 4vw, 3rem);
+    }
+
+    .stats-eyebrow {
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+      display: block;
+    }
+
+    .stats-title {
+      font-family: var(--serif);
+      font-size: clamp(1.375rem, 2.8vw, 2rem);
+      font-style: italic;
+      font-weight: 400;
+      font-variation-settings: "opsz" 60, "wght" 400;
+      color: var(--text);
+      max-width: 28ch;
+      margin: 0 auto;
+      line-height: 1.3;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2.5rem 1.5rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    @media (min-width: 720px) {
+      .stats-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    .stat {
+      text-align: center;
+      padding: 0 0.5rem;
+      position: relative;
+    }
+
+    @media (min-width: 720px) {
+      .stat:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        right: -0.5rem;
+        top: 18%;
+        bottom: 18%;
+        width: 1px;
+        background: var(--rule);
+      }
+    }
+
+    .stat-figure {
+      font-family: var(--serif);
+      font-size: clamp(3rem, 7vw, 4.75rem);
+      font-weight: 500;
+      font-variation-settings: "opsz" 144, "wght" 500;
+      line-height: 1;
+      color: var(--accent);
+      letter-spacing: -0.04em;
+      font-feature-settings: "lnum";
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-figure sup {
+      font-size: 0.5em;
+      vertical-align: super;
+      font-weight: 400;
+    }
+
+    .stat-label {
+      font-family: var(--sans);
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+      max-width: 18ch;
+      margin: 0 auto;
+    }
+
+    /* ==========================================
+       EXPERIENCE
+       ========================================== */
+    .timeline {
+      display: grid;
+      gap: clamp(2.5rem, 4vw, 3.5rem);
+    }
+
+    .role {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      padding: clamp(1.5rem, 3vw, 2rem);
+      background: var(--bg-elev);
+      border: 1px solid var(--rule);
+      border-radius: 12px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .role:hover {
+      border-color: var(--rule-strong);
+      box-shadow: var(--shadow-md);
+    }
+
+    @media (min-width: 820px) {
+      .role {
+        grid-template-columns: 220px 1fr;
+        gap: clamp(1.5rem, 3vw, 2.5rem);
+        padding: clamp(2rem, 3vw, 2.5rem);
+      }
+    }
+
+    .role-meta {
+      font-family: var(--sans);
+    }
+
+    .role-dates {
+      font-size: 0.875rem;
+      color: var(--text);
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      font-variation-settings: "tnum";
+      font-feature-settings: "tnum";
+    }
+
+    .role-duration {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 0.8125rem;
+      color: var(--text-subtle);
+      margin-top: 0.25rem;
+    }
+
+    .role-current {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.25rem 0.625rem;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      border-radius: 20px;
+      margin-top: 0.75rem;
+    }
+
+    .role-current::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    .role-company {
+      font-family: var(--serif);
+      font-size: clamp(1.375rem, 2.4vw, 1.75rem);
+      font-weight: 500;
+      font-variation-settings: "opsz" 36, "wght" 500;
+      line-height: 1.15;
+      letter-spacing: -0.012em;
+      margin-bottom: 0.5rem;
+    }
+
+    .role-location {
+      font-family: var(--sans);
+      font-size: 0.875rem;
+      color: var(--text-subtle);
+      margin-bottom: 1.25rem;
+    }
+
+    .role-progression {
+      font-family: var(--sans);
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 1.75rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .role-progression strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .project-cluster {
+      margin-bottom: 1.75rem;
+    }
+    .project-cluster:last-child { margin-bottom: 0; }
+
+    .project-cluster-title {
+      font-family: var(--serif);
+      font-size: 1.0625rem;
+      font-weight: 600;
+      font-variation-settings: "opsz" 14, "wght" 600;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.005em;
+      margin-bottom: 0.875rem;
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+    }
+
+    .project-cluster-title::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      flex-shrink: 0;
+      transform: translateY(-2px);
+    }
+
+    .role-outcomes li {
+      position: relative;
+      padding-left: 1.25rem;
+      margin-bottom: 0.625rem;
+      max-width: 64ch;
+      line-height: 1.6;
+      font-size: 0.9375rem;
+      color: var(--text);
+    }
+
+    .role-outcomes li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.65rem;
+      width: 10px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    /* ==========================================
+       WORK CARDS
+       ========================================== */
+    .work-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(1.25rem, 2vw, 1.5rem);
+    }
+
+    @media (min-width: 768px) {
+      .work-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .work-card {
+      padding: clamp(1.5rem, 3vw, 2rem);
+      background: var(--bg-elev);
+      border: 1px solid var(--rule);
+      border-radius: 12px;
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .work-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+
+    .work-card:hover {
+      border-color: var(--rule-strong);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .work-card:hover::before { transform: scaleX(1); }
+
+    .work-card-mark {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      gap: 1rem;
+    }
+
+    .work-card-number {
+      font-family: var(--serif);
+      font-size: 1.75rem;
+      font-style: italic;
+      font-weight: 400;
+      font-variation-settings: "opsz" 60, "wght" 400;
+      color: var(--accent);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .work-card-eyebrow {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--text-subtle);
+      font-weight: 500;
+      text-align: right;
+      line-height: 1.45;
+    }
+
+    .work-card h3 {
+      margin-bottom: 0.875rem;
+      font-size: 1.25rem;
+      letter-spacing: -0.012em;
+      font-variation-settings: "opsz" 24;
+    }
+
+    .work-card-body {
+      font-size: 0.9375rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 1.25rem;
+      flex: 1;
+    }
+
+    .work-card-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--rule);
+    }
+
+    .work-card-stack span {
+      font-size: 0.7rem;
+      padding: 0.25rem 0.55rem;
+      background: var(--accent-soft);
+      color: var(--accent);
+      border-radius: 4px;
+      font-family: var(--sans);
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+
+    /* ==========================================
+       SKILLS
+       ========================================== */
+    .skills-list { display: grid; gap: 1.75rem; }
+
+    .skill-category h4 {
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+      margin-bottom: 0.875rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .skill-category h4::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }
+
+    .skill-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .skill-chip {
+      font-size: 0.8125rem;
+      padding: 0.4rem 0.8rem;
+      background: var(--surface);
+      border: 1px solid var(--rule);
+      color: var(--text);
+      border-radius: 6px;
+      line-height: 1.4;
+      font-family: var(--sans);
+      transition: border-color 0.18s, color 0.18s, background 0.18s;
+    }
+
+    .skill-chip:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    /* ==========================================
+       CERTIFICATIONS (dedicated section)
+       ========================================== */
+    .cert-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(1rem, 2vw, 1.5rem);
+    }
+
+    @media (min-width: 720px) {
+      .cert-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .cert-card {
+      position: relative;
+      padding: clamp(1.5rem, 2.5vw, 1.75rem);
+      background: var(--bg-elev);
+      border: 1px solid var(--rule);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+      overflow: hidden;
+    }
+
+    .cert-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--accent);
+      opacity: 0.85;
+    }
+
+    .cert-card:hover {
+      border-color: var(--rule-strong);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .cert-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .cert-issuer {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+    }
+
+    .cert-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--text-subtle);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .cert-status::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: #4a9b6e;
+      border-radius: 50%;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .cert-status::before { background: #6cc090; }
+    }
+
+    .cert-name {
+      font-family: var(--serif);
+      font-size: clamp(1.0625rem, 1.8vw, 1.25rem);
+      font-weight: 500;
+      font-variation-settings: "opsz" 24, "wght" 500;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.012em;
+      margin-bottom: 0.5rem;
+      flex: 1;
+    }
+
+    .cert-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--rule);
+      flex-wrap: wrap;
+    }
+
+    .cert-date {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      font-variation-settings: "opsz" 14;
+    }
+
+    .cert-id {
+      font-family: ui-monospace, 'SF Mono', 'Cascadia Code', 'JetBrains Mono', Menlo, Consolas, monospace;
+      font-size: 0.7rem;
+      color: var(--text-subtle);
+      letter-spacing: 0.02em;
+      max-width: 60%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .cert-id-label {
+      font-family: var(--sans);
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--text-subtle);
+      margin-right: 0.4rem;
+      font-weight: 500;
+    }
+
+    /* ==========================================
+       EDUCATION (dedicated section)
+       ========================================== */
+    .edu-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(1rem, 2vw, 1.5rem);
+    }
+
+    @media (min-width: 720px) {
+      .edu-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .edu-card {
+      position: relative;
+      padding: clamp(1.5rem, 2.5vw, 1.75rem);
+      background: var(--bg-elev);
+      border: 1px solid var(--rule);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+      overflow: hidden;
+    }
+
+    .edu-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 3px;
+      background: var(--accent);
+      opacity: 0.85;
+    }
+
+    .edu-card:hover {
+      border-color: var(--rule-strong);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .edu-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.875rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .edu-institution {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent);
+      line-height: 1.4;
+    }
+
+    .edu-year {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--text-subtle);
+      font-feature-settings: "lnum";
+      font-variation-settings: "opsz" 14;
+      flex-shrink: 0;
+    }
+
+    .edu-degree {
+      font-family: var(--serif);
+      font-size: clamp(1.0625rem, 1.8vw, 1.25rem);
+      font-weight: 500;
+      font-variation-settings: "opsz" 24, "wght" 500;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.012em;
+      margin-bottom: 0.5rem;
+    }
+
+    .edu-location {
+      font-family: var(--sans);
+      font-size: 0.8125rem;
+      color: var(--text-subtle);
+      margin-top: auto;
+    }
+
+    /* ==========================================
+       CONTACT
+       ========================================== */
+    .contact {
+      background: var(--bg-deep);
+      border-top: 1px solid var(--rule);
+    }
+
+    .contact-content {
+      max-width: 760px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .contact-tagline {
+      font-family: var(--serif);
+      font-size: clamp(1.375rem, 3vw, 2.125rem);
+      font-weight: 400;
+      font-style: italic;
+      font-variation-settings: "opsz" 72, "wght" 400;
+      line-height: 1.3;
+      margin: 1rem auto 2.25rem;
+      color: var(--text);
+      max-width: 28ch;
+      letter-spacing: -0.012em;
+    }
+
+    .contact-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .contact-links {
+      display: grid;
+      gap: 0;
+      margin-top: 2rem;
+      text-align: left;
+    }
+
+    .contact-link {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+      padding: 1.125rem 0.5rem;
+      border-top: 1px solid var(--rule);
+      font-family: var(--serif);
+      font-size: clamp(0.95rem, 1.6vw, 1.125rem);
+      color: var(--text);
+      flex-wrap: wrap;
+      font-variation-settings: "opsz" 18;
+      transition: padding-left 0.25s ease, color 0.18s;
+      border-radius: 4px;
+    }
+
+    .contact-link:last-of-type { border-bottom: 1px solid var(--rule); }
+
+    .contact-link-label {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--text-subtle);
+      transition: color 0.18s;
+      font-weight: 600;
+    }
+
+    .contact-link:hover {
+      color: var(--accent);
+      text-decoration: none;
+      padding-left: 1rem;
+    }
+
+    .contact-link:hover .contact-link-label {
+      color: var(--accent);
+    }
+
+    /* ==========================================
+       FOOTER
+       ========================================== */
+    footer {
+      padding: 1.75rem 0 2rem;
+      font-size: 0.8125rem;
+      color: var(--text-subtle);
+      border-top: 1px solid var(--rule);
+      background: var(--bg);
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    /* ==========================================
+       PRINT
+       ========================================== */
+    @media print {
+      :root {
+        --bg: #ffffff;
+        --bg-deep: #ffffff;
+        --bg-elev: #ffffff;
+        --surface: #ffffff;
+        --text: #000000;
+        --text-muted: #333333;
+        --text-subtle: #555555;
+        --rule: #cccccc;
+        --rule-strong: #999999;
+        --accent: #000000;
+        --accent-soft: #f0f0f0;
+        --section-pad: 0.75rem;
+      }
+      body { font-size: 10pt; line-height: 1.4; }
+      .site-nav, .portrait-frame, .stats, .hero-actions, .contact-actions { display: none; }
+      section { padding: 0.5rem 0; border-bottom: 1px solid #ccc; page-break-inside: avoid; }
+      h1 { font-size: 24pt; }
+      h2 { font-size: 14pt; margin-top: 0.5rem; }
+      h3 { font-size: 11pt; }
+      .hero-grid { display: block; }
+      .hero-tagline { font-size: 12pt; margin: 0.5rem 0; }
+      .hero-meta { display: flex; flex-wrap: wrap; gap: 0.4rem 1.5rem; margin-top: 0.75rem; padding-top: 0.5rem; }
+      .work-grid { display: block; }
+      .work-card, .role { border: 1px solid #ccc; padding: 0.5rem; margin-bottom: 0.4rem; page-break-inside: avoid; box-shadow: none !important; border-radius: 0; }
+      .cert-card { border: 1px solid #ccc; padding: 0.5rem; page-break-inside: avoid; box-shadow: none !important; border-radius: 0; }
+      .cert-card::before { display: none; }
+      .cert-grid { grid-template-columns: repeat(3, 1fr); gap: 0.4rem; }
+      .edu-card { border: 1px solid #ccc; padding: 0.5rem; page-break-inside: avoid; box-shadow: none !important; border-radius: 0; }
+      .edu-card::before { display: none; }
+      .edu-grid { grid-template-columns: repeat(2, 1fr); gap: 0.4rem; }
+      .role-outcomes li { margin-bottom: 0.3rem; font-size: 9.5pt; }
+      .contact-link { padding: 0.4rem 0; font-size: 11pt; }
+      a { color: #000; text-decoration: none; }
+      .role-meta { position: static; }
+      .stat-figure, .work-card-number { color: #000; }
+      .work-card-stack span { background: #f0f0f0; color: #000; }
+      .observable { opacity: 1 !important; transform: none !important; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        transition-duration: 0.001ms !important;
+        animation-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Bikramjit Singh",
+    "jobTitle": "Senior Principal Architect",
+    "description": "Senior architect with 23+ years in desktop publishing and component content management systems.",
+    "worksFor": { "@type": "Organization", "name": "Quark Publishing R&D (India) Pvt. Ltd." },
+    "email": "mailto:bikramjits77@gmail.com",
+    "telephone": "+91-98729-66570",
+    "address": { "@type": "PostalAddress", "addressLocality": "Mohali", "addressRegion": "Punjab", "addressCountry": "IN" },
+    "sameAs": ["https://linkedin.com/in/bikramjit-singh-97b6b06"],
+    "alumniOf": [
+      { "@type": "EducationalOrganization", "name": "Guru Nanak Dev University, Amritsar" },
+      { "@type": "EducationalOrganization", "name": "University of Delhi" }
+    ],
+    "knowsAbout": ["Desktop Publishing", "Component Content Management Systems", "DITA", "C++", "C# / .NET", "Objective-C / Cocoa", "Angular", "CEF", "Typography Engines", "Unicode", "ICU"],
+    "hasCredential": [{ "@type": "EducationalOccupationalCredential", "name": "Microsoft Certified: Azure AI Engineer Associate" }]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- SITE NAVIGATION -->
+  <header class="site-nav">
+    <div class="container nav-inner">
+      <a href="#top" class="nav-brand">Bikramjit Singh</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#work">Work</a>
+        <a href="#skills">Skills</a>
+        <a href="#certifications">Certifications</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a href="#contact" class="nav-cta">
+        Get in touch <span class="nav-cta-arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- HERO -->
+    <section class="hero" id="top" aria-labelledby="name">
+      <div class="container">
+        <div class="hero-grid">
+          <div>
+            <p class="hero-role">Available for select conversations</p>
+            <h1 id="name">Bikramjit Singh</h1>
+            <p class="hero-tagline">Senior architect engineering the seam between native desktop and modern web.</p>
+
+            <div class="hero-actions">
+              <a href="#contact" class="btn btn-primary">
+                Get in touch <span class="btn-arrow" aria-hidden="true">→</span>
+              </a>
+              <a href="Bikramjit_Singh_Resume.pdf" class="btn btn-secondary" download>
+                Download CV <span class="btn-arrow-down" aria-hidden="true">↓</span>
+              </a>
+              <a href="https://linkedin.com/in/bikramjit-singh-97b6b06" class="btn btn-secondary" rel="noopener">
+                View LinkedIn
+              </a>
+            </div>
+
+            <dl class="hero-meta">
+              <div>
+                <dt class="hero-meta-label">Currently</dt>
+                <dd class="hero-meta-value">Senior Principal Architect, Quark Publishing R&amp;D</dd>
+              </div>
+              <div>
+                <dt class="hero-meta-label">Based in</dt>
+                <dd class="hero-meta-value">Mohali, Punjab — India</dd>
+              </div>
+              <div>
+                <dt class="hero-meta-label">Field</dt>
+                <dd class="hero-meta-value">Desktop Publishing &amp; CCMS</dd>
+              </div>
+            </dl>
+          </div>
+
+          <div class="portrait-frame">
+            <figure class="portrait">
+              <img src="headshot.jpeg"
+                   alt="Portrait of Bikramjit Singh"
+                   width="380" height="475"
+                   loading="eager"
+                   fetchpriority="high">
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" aria-labelledby="about-label">
+      <div class="container two-col">
+        <div>
+          <span class="section-eyebrow" id="about-label">About</span>
+        </div>
+        <div class="about-body">
+          <p>Bikramjit Singh has spent most of his career inside QuarkXPress — first the typography engine, then the cross-platform migrations, more recently the layer that lets modern web frameworks render inside decades-old C++ desktop code. The systems he works on are the kind that take years to mature, which is part of why he has stayed.</p>
+          <p>His work spans the integration layer between native and web stacks: C++ and Objective-C desktop applications modernized through C# adapters and Angular components embedded via CEF. The systems he owns are foundational and high-stakes — typography subsystems, format recovery, Unicode infrastructure for nearly ten Indian scripts, and the migration of legacy SOAP integrations to REST microservices. Twenty-three years in, recently certified as an Azure AI Engineer.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="stats" aria-labelledby="stats-label">
+      <div class="container">
+        <div class="stats-header">
+          <span class="stats-eyebrow" id="stats-label">By the Numbers</span>
+          <h2 class="stats-title">A career measured in shipped systems and ported subsystems.</h2>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat">
+            <div class="stat-figure">23<sup>+</sup></div>
+            <p class="stat-label">years of enterprise software engineering</p>
+          </div>
+          <div class="stat">
+            <div class="stat-figure">5</div>
+            <p class="stat-label">promotions across fifteen years at Quark</p>
+          </div>
+          <div class="stat">
+            <div class="stat-figure">10</div>
+            <p class="stat-label">Indian scripts brought to QuarkXPress&apos; text engine</p>
+          </div>
+          <div class="stat">
+            <div class="stat-figure">50<sup>+</sup></div>
+            <p class="stat-label">customer documents recovered from binary corruption</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience" aria-labelledby="experience-label">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-eyebrow" id="experience-label">Experience</span>
+          <h2>Twenty-three years, in order.</h2>
+        </div>
+
+        <div class="timeline">
+
+          <article class="role">
+            <div class="role-meta">
+              <div class="role-dates">Aug 2010 — Present</div>
+              <div class="role-duration">Fifteen years</div>
+              <span class="role-current">Current</span>
+            </div>
+            <div>
+              <h3 class="role-company">Quark Publishing R&amp;D (India) Pvt. Ltd.</h3>
+              <p class="role-location">Mohali, Punjab — India</p>
+
+              <p class="role-progression">
+                <strong>Senior Principal Architect</strong> (Jul 2025–present) &nbsp;·&nbsp;
+                <strong>Senior Principal Engineer</strong> (Apr 2024–Jun 2025) &nbsp;·&nbsp;
+                <strong>Principal Engineer</strong> (Nov 2020–Mar 2024) &nbsp;·&nbsp;
+                <strong>Senior Technical Lead</strong> (Apr 2013–Oct 2020) &nbsp;·&nbsp;
+                <strong>Technical Lead</strong> (Aug 2010–Mar 2013)
+              </p>
+
+              <div class="project-cluster">
+                <h4 class="project-cluster-title">QPP Adapters — Quark XML Author &amp; Microsoft Office (Word, Excel, PowerPoint)</h4>
+                <ul class="role-outcomes">
+                  <li>Architected and led migration of QPP Adapter integrations from the legacy SOAP-based QPP Server to REST microservices, modernizing the backend interoperability layer for enterprise CCMS deployments.</li>
+                  <li>Designed a CEF (v146) browser-embedded wrapper library enabling Angular 19 web components to render natively inside C# and C++ desktop applications — eliminating a parallel UI stack and reducing long-term maintenance overhead.</li>
+                  <li>Integrated an Angular 19 reusable component library into .NET 4.6.2 / C# native applications (Word, Excel, PowerPoint adapters), enabling shared web/desktop UI assets across the QPP NG product suite.</li>
+                  <li>Delivered five enterprise CCMS workflow features — Bulk Workflow, Content Automation Rules, Auto Burst Component, Pinning &amp; Locking, and Privilege Support — expanding structured-authoring capabilities for enterprise publishing clients.</li>
+                </ul>
+              </div>
+
+              <div class="project-cluster">
+                <h4 class="project-cluster-title">QuarkXPress Application (v9.x – 14.x)</h4>
+                <ul class="role-outcomes">
+                  <li>Delivered Indic language support in the QuarkXPress 14.2 text engine; overhauled ICU (Unicode), HarfBuzz (text shaping), and Hunspell (spell-check) library infrastructure to support nearly ten Indian scripts — enabling Quark to address the Indian publishing market.</li>
+                  <li>Component owner of the hyphenation and spell-checking subsystem (QXP 13.0+), maintaining and improving quality across five major product releases.</li>
+                  <li>Extended QXP 13.0 image-editing capabilities by porting roughly twenty algorithms from the Image Pump Library, adding graphic editing operations directly to the layout engine.</li>
+                  <li>Led the 64-bit / Cocoa migration of QuarkXPress XTension components for v10.0, decoupling tightly-coupled UI and core logic to support the new macOS Cocoa architecture across approximately ten XTensions.</li>
+                  <li>Recovered critical corrupted QuarkXPress documents (v7.x – current) for around fifty enterprise customers via low-level binary analysis, directly preventing data loss and reducing support escalations.</li>
+                </ul>
+              </div>
+
+              <div class="project-cluster">
+                <h4 class="project-cluster-title">QuarkXPress Server &amp; XTension Development Kit (XDK)</h4>
+                <ul class="role-outcomes">
+                  <li>Improved resilience of the Java-based headless publishing server by implementing proactive health checks and automated renderer-restart logic — increasing uptime for high-volume automated publishing pipelines.</li>
+                  <li>Provided Tier-3 API support to third-party XTension developers; resolved critical integration issues and implemented customer-specific XTensions against tight SLAs.</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+          <article class="role">
+            <div class="role-meta">
+              <div class="role-dates">Dec 2007 — Aug 2010</div>
+              <div class="role-duration">Two years, eight months</div>
+            </div>
+            <div>
+              <h3 class="role-company">Infosys Technologies</h3>
+              <p class="role-location">Module Leader — Finacle Core Banking (Connect 24 / Interfaces)</p>
+              <ul class="role-outcomes">
+                <li>Led offshore and onsite support for the Interfaces team of Finacle (v7.x, v9.x), serving roughly ten global bank clients through system integration, post-go-live maintenance, and product migration cycles.</li>
+                <li>Drove root-cause analysis and patch delivery for production-critical incidents, reducing MTTR for banking clients; traveled onsite for training and issue resolution.</li>
+                <li>Mentored four junior engineers; managed resource allocation and incident triage for the team.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="role">
+            <div class="role-meta">
+              <div class="role-dates">Nov 2004 — Nov 2007</div>
+              <div class="role-duration">Three years</div>
+            </div>
+            <div>
+              <h3 class="role-company">Quark Media House Pvt. Ltd.</h3>
+              <p class="role-location">Senior Software Engineer → Member, Software Development</p>
+              <ul class="role-outcomes">
+                <li>Refactored and enhanced the QuarkXPress Spell-checking XTension (v6.5–7.x), adding case-sensitive error detection, doubled-word detection, and URL/number-ignore rules — expanding spellcheck accuracy beyond word-level errors.</li>
+                <li>Contributed to the Unicode text engine for QXP 7.0; resolved performance bottlenecks and memory corruptions in QXP 6.5.2 and 7.01 (Universal Binary / Mac) using DevPartner Studio on Windows and Shark on macOS.</li>
+                <li>Resolved third-party XTension developer queries, authored sample XTensions, and built a parser tool for the Quark Developer Reference (QDR) documentation.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="role">
+            <div class="role-meta">
+              <div class="role-dates">Jan 2000 — Nov 2004</div>
+              <div class="role-duration">Almost five years</div>
+            </div>
+            <div>
+              <h3 class="role-company">Earlier roles</h3>
+              <p class="role-location">D.A.V. College, Phagwara · HCL Technologies · Open Technologies India</p>
+              <ul class="role-outcomes">
+                <li><strong>D.A.V. College, Phagwara (Mohan Lal Uppal)</strong> — Lecturer, Computer Science (Jun 2002 – Nov 2004). Taught C++, Data Structures, and Computer Architecture to M.Sc. (IT) and BCA classes; managed department IT infrastructure and served as Centre Superintendent for university final examinations.</li>
+                <li><strong>HCL Technologies</strong> — Software Engineer (Dec 2000 – Jan 2002). Internationalization (Unicode / multi-byte encoding) of SNMP Manager, Message Parser, and DB Abstraction DLL (VC++) for client GASPER; conducted ATM OS/2 driver and NDC+ migration study for NCR with an onsite training engagement in Dundee, Scotland.</li>
+                <li><strong>Open Technologies India Pvt. Ltd.</strong> — Software Engineer (Jan 2000 – Dec 2000, includes six-month traineeship). Built a Java Native Interface (JNI) bridge enabling Java-based OpenNET products to invoke C-language Elink networking APIs; maintained and enhanced the Elink Manager GUI.</li>
+              </ul>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SELECTED WORK -->
+    <section id="work" aria-labelledby="work-label">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-eyebrow" id="work-label">Selected Work</span>
+          <h2>Four projects, in detail.</h2>
+        </div>
+
+        <div class="work-grid">
+
+          <article class="work-card">
+            <div class="work-card-mark">
+              <span class="work-card-number">01</span>
+              <span class="work-card-eyebrow">Quark Publishing R&amp;D<br>2024–25</span>
+            </div>
+            <h3>Angular inside native desktop, via CEF</h3>
+            <p class="work-card-body">A browser-embedded wrapper library that allows Angular 19 components to render natively inside C# and C++ desktop applications — eliminating a parallel UI stack across the QPP NG product suite and reducing long-term maintenance overhead. The connective tissue between two architectural eras of the product.</p>
+            <div class="work-card-stack">
+              <span>CEF 146</span><span>Angular 19</span><span>C++</span><span>C# / .NET</span>
+            </div>
+          </article>
+
+          <article class="work-card">
+            <div class="work-card-mark">
+              <span class="work-card-number">02</span>
+              <span class="work-card-eyebrow">QuarkXPress 14.2<br>2022</span>
+            </div>
+            <h3>Indic scripts in QuarkXPress</h3>
+            <p class="work-card-body">Overhauled the ICU, HarfBuzz, and Hunspell infrastructure in the QuarkXPress text engine to support nearly ten Indian scripts — the technical foundation that opened the product to the Indian publishing market for the first time in its history.</p>
+            <div class="work-card-stack">
+              <span>ICU</span><span>HarfBuzz</span><span>Hunspell</span><span>C++</span><span>Typography</span>
+            </div>
+          </article>
+
+          <article class="work-card">
+            <div class="work-card-mark">
+              <span class="work-card-number">03</span>
+              <span class="work-card-eyebrow">QuarkXPress v10.0<br>2013</span>
+            </div>
+            <h3>64-bit Cocoa migration of QXP XTensions</h3>
+            <p class="work-card-body">Led the 64-bit and Cocoa migration of QuarkXPress XTension components for v10.0 — decoupling tightly-coupled UI and core logic across roughly ten XTensions to support the new macOS architecture. A migration of the kind that quietly preserves a product line for another decade.</p>
+            <div class="work-card-stack">
+              <span>Objective-C</span><span>Cocoa</span><span>C++</span><span>macOS</span>
+            </div>
+          </article>
+
+          <article class="work-card">
+            <div class="work-card-mark">
+              <span class="work-card-number">04</span>
+              <span class="work-card-eyebrow">QPP NG<br>2022–24</span>
+            </div>
+            <h3>QPP Adapters — SOAP to REST modernization</h3>
+            <p class="work-card-body">Architected the migration of QPP Adapter integrations from a legacy SOAP-based server to REST microservices, modernizing the interoperability layer for the Word, Excel, and PowerPoint adapters across enterprise CCMS deployments.</p>
+            <div class="work-card-stack">
+              <span>REST</span><span>Microservices</span><span>.NET 4.6.2</span><span>C#</span>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" aria-labelledby="skills-label">
+      <div class="container two-col">
+        <div>
+          <span class="section-eyebrow" id="skills-label">Skills</span>
+        </div>
+        <div class="skills-list">
+
+          <div class="skill-category">
+            <h4>Languages</h4>
+            <div class="skill-chips">
+              <span class="skill-chip">C++</span>
+              <span class="skill-chip">C#</span>
+              <span class="skill-chip">Objective-C / Cocoa</span>
+              <span class="skill-chip">Java</span>
+              <span class="skill-chip">JavaScript</span>
+              <span class="skill-chip">XSLT / XML</span>
+            </div>
+          </div>
+
+          <div class="skill-category">
+            <h4>Frameworks &amp; Libraries</h4>
+            <div class="skill-chips">
+              <span class="skill-chip">.NET 4.6.2</span>
+              <span class="skill-chip">Angular 19</span>
+              <span class="skill-chip">CEF 146</span>
+              <span class="skill-chip">DITA / Smart Content XML</span>
+              <span class="skill-chip">JNI</span>
+              <span class="skill-chip">ICU</span>
+              <span class="skill-chip">HarfBuzz</span>
+              <span class="skill-chip">Hunspell</span>
+            </div>
+          </div>
+
+          <div class="skill-category">
+            <h4>Domain</h4>
+            <div class="skill-chips">
+              <span class="skill-chip">Desktop Publishing</span>
+              <span class="skill-chip">CCMS</span>
+              <span class="skill-chip">Structured Authoring</span>
+              <span class="skill-chip">REST &amp; SOAP Microservices</span>
+              <span class="skill-chip">XTension Development</span>
+              <span class="skill-chip">Unicode &amp; Typography</span>
+              <span class="skill-chip">Publishing Automation</span>
+            </div>
+          </div>
+
+          <div class="skill-category">
+            <h4>Platforms &amp; Tools</h4>
+            <div class="skill-chips">
+              <span class="skill-chip">Windows 10 / 11</span>
+              <span class="skill-chip">macOS (10.4+)</span>
+              <span class="skill-chip">Visual Studio 2022</span>
+              <span class="skill-chip">XCode</span>
+              <span class="skill-chip">VS Code</span>
+              <span class="skill-chip">Eclipse</span>
+              <span class="skill-chip">Postman</span>
+            </div>
+          </div>
+
+          <div class="skill-category">
+            <h4>Cloud &amp; AI</h4>
+            <div class="skill-chips">
+              <span class="skill-chip">Microsoft Azure</span>
+              <span class="skill-chip">Claude AI / Anthropic APIs</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CERTIFICATIONS -->
+    <section id="certifications" aria-labelledby="cert-label">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-eyebrow" id="cert-label">Certifications</span>
+        </div>
+
+        <div class="cert-grid">
+
+          <article class="cert-card">
+            <div class="cert-card-top">
+              <span class="cert-issuer">Microsoft</span>
+              <span class="cert-status">Active</span>
+            </div>
+            <h3 class="cert-name">Azure AI Engineer Associate</h3>
+            <div class="cert-meta">
+              <span class="cert-date">Jan 2026</span>
+              <span class="cert-id" title="Credential ID"><span class="cert-id-label">ID</span>EDF1194FE440D4CC</span>
+            </div>
+          </article>
+
+          <article class="cert-card">
+            <div class="cert-card-top">
+              <span class="cert-issuer">Anthropic</span>
+              <span class="cert-status">Active</span>
+            </div>
+            <h3 class="cert-name">Claude Code 101</h3>
+            <div class="cert-meta">
+              <span class="cert-date">Apr 2026</span>
+              <span class="cert-id" title="Credential ID"><span class="cert-id-label">ID</span>8iohkgf3q53m</span>
+            </div>
+          </article>
+
+          <article class="cert-card">
+            <div class="cert-card-top">
+              <span class="cert-issuer">Anthropic</span>
+              <span class="cert-status">Active</span>
+            </div>
+            <h3 class="cert-name">Claude 101</h3>
+            <div class="cert-meta">
+              <span class="cert-date">Apr 2026</span>
+              <span class="cert-id" title="Credential ID"><span class="cert-id-label">ID</span>nucm2h5obpgp</span>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education" aria-labelledby="edu-label">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-eyebrow" id="edu-label">Education</span>
+        </div>
+
+        <div class="edu-grid">
+
+          <article class="edu-card">
+            <div class="edu-card-top">
+              <span class="edu-institution">Guru Nanak Dev University</span>
+              <span class="edu-year">2000</span>
+            </div>
+            <h3 class="edu-degree">MCA — Master of Computer Applications</h3>
+            <p class="edu-location">Amritsar, Punjab — India</p>
+          </article>
+
+          <article class="edu-card">
+            <div class="edu-card-top">
+              <span class="edu-institution">University of Delhi</span>
+              <span class="edu-year">1997</span>
+            </div>
+            <h3 class="edu-degree">B.Sc. (Mathematics Honours)</h3>
+            <p class="edu-location">New Delhi — India</p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact" id="contact" aria-labelledby="contact-label">
+      <div class="container">
+        <div class="contact-content">
+          <span class="section-eyebrow" id="contact-label" style="justify-content: center;">Contact</span>
+          <p class="contact-tagline">Open to conversations about desktop publishing, structured content systems, and the engineering that keeps long-lived software useful.</p>
+
+          <div class="contact-actions">
+            <a href="mailto:bikramjits77@gmail.com" class="btn btn-primary">
+              Send an email <span class="btn-arrow" aria-hidden="true">→</span>
+            </a>
+            <a href="https://linkedin.com/in/bikramjit-singh-97b6b06" class="btn btn-secondary" rel="noopener">
+              Connect on LinkedIn
+            </a>
+          </div>
+
+          <div class="contact-links">
+            <a href="mailto:bikramjits77@gmail.com" class="contact-link">
+              <span>bikramjits77@gmail.com</span>
+              <span class="contact-link-label">Email</span>
+            </a>
+            <a href="https://linkedin.com/in/bikramjit-singh-97b6b06" class="contact-link" rel="noopener">
+              <span>linkedin.com/in/bikramjit-singh-97b6b06</span>
+              <span class="contact-link-label">LinkedIn</span>
+            </a>
+            <a href="tel:+919872966570" class="contact-link">
+              <span>+91 98729 66570</span>
+              <span class="contact-link-label">Phone</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <span>© 2026 Bikramjit Singh</span>
+      <span>Mohali, Punjab · India</span>
+    </div>
+  </footer>
+
+  <script>
+    // Minimal vanilla JS — scroll reveal + scroll spy.
+    // Both use IntersectionObserver (zero dependencies, GPU-cheap).
+    (function () {
+      'use strict';
+
+      // Respect users who prefer reduced motion
+      var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // ---- SCROLL REVEAL ----
+      // Fade sections up as they enter the viewport. First-reveal only.
+      if (!prefersReducedMotion && 'IntersectionObserver' in window) {
+        var sections = document.querySelectorAll('main section:not(.hero)');
+        sections.forEach(function (s) { s.classList.add('observable'); });
+
+        var revealObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              revealObserver.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+
+        sections.forEach(function (s) { revealObserver.observe(s); });
+      }
+
+      // ---- SCROLL SPY ----
+      // Light up the matching nav link as each section is in view.
+      if ('IntersectionObserver' in window) {
+        var navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+        var trackedSections = document.querySelectorAll('main section[id]');
+        if (navLinks.length && trackedSections.length) {
+          var spyObserver = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                var id = entry.target.id;
+                navLinks.forEach(function (link) {
+                  var matches = link.getAttribute('href') === '#' + id;
+                  link.classList.toggle('is-active', matches);
+                });
+              }
+            });
+          }, { rootMargin: '-35% 0px -55% 0px' });
+
+          trackedSections.forEach(function (s) { spyObserver.observe(s); });
+        }
+      }
+    })();
+  </script>
+</body>
+</html>
